@@ -1,0 +1,69 @@
+package com.mycompany.pilha;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ *
+ * @author Miétje
+ */
+public class Pilha {
+
+    public static void main(String[] args) {
+        Stack<RegPro> pilha = new Stack();
+         Queue<RegPro> fila = new LinkedList();
+       String caminhoArquivo = "C:\\Users\\Miétje\\Downloads\\Produto.txt";
+        int codigo=0;
+        String nome;
+        String valors;
+        double valor=0;
+        int qtd =0;
+        int categoria = 0;
+        double total=0;
+        int qtd1 = 0;
+        try {
+            File arquivo = new File(caminhoArquivo);
+            Scanner leitor = new Scanner(arquivo);
+            Scanner leia = new Scanner(System.in);
+            while(leitor.hasNextLine()){
+                String linha = leitor.nextLine();
+                codigo = Integer.parseInt(linha.substring(0,2));
+                nome = linha.substring(3,34);
+                valors=linha.substring(36,41);
+                valor=Double.parseDouble(valors);
+                valor = valor/100;
+                qtd = Integer.parseInt(linha.substring(43,45));
+                categoria = Integer.parseInt(linha.substring(46,47));
+                
+                RegPro reg = new RegPro(codigo,nome,valor,qtd);
+                pilha.push(reg);
+                fila.add(reg);
+            }
+        } catch (Exception e) {
+            System.out.println("arquivo n encontrado");
+        }
+        for(RegPro item : pilha){
+            System.out.println(item.getDescricao());
+        }
+        for(int i = 0;i<5;i++){
+            pilha.pop();
+            fila.poll();
+        }
+        System.out.println("");
+        for(RegPro item : pilha){
+            System.out.println(item.getDescricao());
+        }
+        System.out.println("");
+        for(RegPro item : fila){
+            System.out.println(item.getDescricao());
+        }
+        
+        
+    
+        
+        
+    }
+}
